@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "NNPensionPlanner/1.0.0": {
+        "runtime": {
+          "NNPensionPlanner.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NNPensionPlanner/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
