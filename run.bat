@@ -1,4 +1,7 @@
 @echo off
+:: Change to the directory where this script lives
+cd /d "%~dp0"
+
 echo ============================================
 echo   NN Pension Planner - Starting...
 echo ============================================
@@ -32,3 +35,8 @@ start "" http://localhost:5000
 
 :: Run the application
 dotnet run --project NNPensionPlanner.csproj --no-build --urls http://localhost:5000
+
+:: If we get here, the app exited — keep window open so user can see why
+echo.
+echo Application stopped.
+pause

@@ -1,4 +1,7 @@
 @echo off
+:: Change to the directory where this script lives
+cd /d "%~dp0"
+
 echo ============================================
 echo   NN Pension Planner - Building...
 echo ============================================
