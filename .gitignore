@@ -1,0 +1,16 @@
+## Build output
+bin/
+obj/
+
+## IDE
+*.user
+*.suo
+.vs/
+
+## OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+## Local .NET SDK (auto-downloaded by run.bat)
+.dotnet/

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bluijbregts\\OneDrive - Microsoft\\GitHub Copilot\\NN\\HandsOnRepo\\NNPensionPlanner.csproj",
+      "projectUniqueName": "c:\\Users\\bluijbregts\\OneDrive - Microsoft\\GitHub Copilot\\NN\\HandsOnRepo\\NNPensionPlanner.csproj",
       "projectName": "NNPensionPlanner",
-      "projectPath": "C:\\Users\\bluijbregts\\OneDrive - Microsoft\\GitHub Copilot\\NN\\HandsOnRepo\\NNPensionPlanner.csproj",
+      "projectPath": "c:\\Users\\bluijbregts\\OneDrive - Microsoft\\GitHub Copilot\\NN\\HandsOnRepo\\NNPensionPlanner.csproj",
       "packagesPath": "C:\\Users\\bluijbregts\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bluijbregts\\OneDrive - Microsoft\\GitHub Copilot\\NN\\HandsOnRepo\\obj\\",
+      "outputPath": "c:\\Users\\bluijbregts\\OneDrive - Microsoft\\GitHub Copilot\\NN\\HandsOnRepo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

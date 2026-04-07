@@ -31,3 +31,5 @@ c:\Users\bluijbregts\OneDrive - Microsoft\GitHub Copilot\NN\HandsOnRepo\obj\Debu
 c:\Users\bluijbregts\OneDrive - Microsoft\GitHub Copilot\NN\HandsOnRepo\obj\Debug\net10.0\NNPensionPlanner.pdb
 c:\Users\bluijbregts\OneDrive - Microsoft\GitHub Copilot\NN\HandsOnRepo\obj\Debug\net10.0\NNPensionPlanner.genruntimeconfig.cache
 c:\Users\bluijbregts\OneDrive - Microsoft\GitHub Copilot\NN\HandsOnRepo\obj\Debug\net10.0\ref\NNPensionPlanner.dll
+c:\Users\bluijbregts\OneDrive - Microsoft\GitHub Copilot\NN\HandsOnRepo\obj\Debug\net10.0\NNPensionPlanner.sourcelink.json
+C:\Users\bluijbregts\OneDrive - Microsoft\GitHub Copilot\NN\HandsOnRepo\bin\Debug\net10.0\global.json

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NNPensionPlanner")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b01b7da0a249c2fb620be0a86549bd8060b4d907")]
 [assembly: System.Reflection.AssemblyProductAttribute("NNPensionPlanner")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NNPensionPlanner")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
