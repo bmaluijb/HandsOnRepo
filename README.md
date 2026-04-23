@@ -167,19 +167,28 @@ The feature to implement: {{input}}
 8. Try it with: *"Get a participant's total contributions across all their enrollments"*
 9. Compare this to the baseline from Part A — the output should be much more consistent and complete
 
-#### Bonus: File-Scoped Instructions
-Create a `.instructions.md` file that only applies to certain files, for example `Services/.instructions.md`:
+#### Bonus: File-Scoped Instructions (`.instructions.md` files)
+
+`.instructions.md` files let you apply instructions conditionally based on file patterns or task descriptions. They live in the `.github/instructions/` folder (not alongside your source code). You can organize them in subdirectories by team, language, or module.
+
+Create a file `.github/instructions/services.instructions.md`:
 
 ```markdown
 ---
-applyTo: "Services/**/*.cs"
+name: 'Service Conventions'
+description: 'Coding conventions for service classes in the Services folder'
+applyTo: 'Services/**/*.cs'
 ---
 - All service methods must validate input parameters before processing
 - Log entry and exit of every public method
 - Include the enrollment ID or participant ID in all log messages
 ```
 
+> **Note:** The `applyTo` glob pattern is relative to the workspace root. The `name` and `description` fields are optional — `name` is shown in the UI (defaults to the file name), and `description` appears on hover in the Chat view.
+
 10. Ask Copilot to add a method to any service and see if the scoped instructions are followed
+
+> **Tip:** Type `/instructions` in the chat input to quickly open the Configure Instructions and Rules menu. You can also use `/create-instruction` followed by a description (e.g., *"always use tabs and single quotes"*) to let AI generate an `.instructions.md` file for you. Use `/init` to auto-generate workspace-wide instructions based on your project structure.
 
 #### Discussion
 - What difference did the instructions make?
