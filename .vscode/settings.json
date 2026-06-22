@@ -5,9 +5,6 @@
         "opsx-apply": true,
         "opsx-sync": true,
         "opsx-archive": true
-    },
-    "chat.tools.terminal.autoApprove": {
-        "openspec": true
     }
 }
 

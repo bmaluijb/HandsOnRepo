@@ -1,104 +1,94 @@
 ---
-description: Propose a new change - create it and generate all artifacts in one step
+description: Propose a new OpenSpec change - create the change folder and all artifacts (no CLI, no install)
+mode: agent
 ---
 
-Propose a new change - create the change and generate all artifacts in one step.
+Create a new OpenSpec change and generate all of its artifacts directly as Markdown files. You do everything yourself with your file-editing tools - this command does **not** use the `openspec` CLI or any other external tool, so nothing needs to be installed.
 
-I'll create a change with artifacts:
-- proposal.md (what & why)
-- design.md (how)
-- tasks.md (implementation steps)
+**Input**: the text after `/opsx-propose` is either a kebab-case change name OR a description of what to build. If nothing was provided, ask the user what they want to build, then continue.
 
-When ready to implement, run /opsx:apply
+## Steps
 
----
+1. **Pick a change name.** Derive a short kebab-case name from the request (e.g. "add user authentication" -> `add-user-auth`). If `openspec/changes/<name>/` already exists, ask whether to continue that change or choose a new name.
 
-**Input**: The argument after `/opsx:propose` is the change name (kebab-case), OR a description of what the user wants to build.
+2. **Understand the project first.** Skim the relevant code and any existing specs under `openspec/specs/` so the proposal matches the project's conventions.
 
-**Steps**
+3. **Create the change folder** `openspec/changes/<name>/` and write these files.
 
-1. **If no input provided, ask what they want to build**
+   `proposal.md`:
 
-   Use the **AskUserQuestion tool** (open-ended, no preset options) to ask:
-   > "What change do you want to work on? Describe what you want to build or fix."
+   ```markdown
+   # Proposal: <Title>
 
-   From their description, derive a kebab-case name (e.g., "add user authentication" → `add-user-auth`).
+   ## Why
+   <1-3 sentences: the problem or opportunity.>
 
-   **IMPORTANT**: Do NOT proceed without understanding what the user wants to build.
+   ## What Changes
+   - <bullet list of the behavior being added or changed>
 
-2. **Create the change directory**
-   ```bash
-   openspec new change "<name>"
-   ```
-   This creates a scaffolded change in the planning home resolved by the CLI with `.openspec.yaml`.
-
-3. **Get the artifact build order**
-   ```bash
-   openspec status --change "<name>" --json
-   ```
-   Parse the JSON to get:
-   - `applyRequires`: array of artifact IDs needed before implementation (e.g., `["tasks"]`)
-   - `artifacts`: list of all artifacts with their status and dependencies
-   - `planningHome`, `changeRoot`, `artifactPaths`, and `actionContext`: path and scope context. Use these instead of assuming repo-local paths.
-
-4. **Create artifacts in sequence until apply-ready**
-
-   Use the **TodoWrite tool** to track progress through the artifacts.
-
-   Loop through artifacts in dependency order (artifacts with no pending dependencies first):
-
-   a. **For each artifact that is `ready` (dependencies satisfied)**:
-      - Get instructions:
-        ```bash
-        openspec instructions <artifact-id> --change "<name>" --json
-        ```
-      - The instructions JSON includes:
-        - `context`: Project background (constraints for you - do NOT include in output)
-        - `rules`: Artifact-specific rules (constraints for you - do NOT include in output)
-        - `template`: The structure to use for your output file
-        - `instruction`: Schema-specific guidance for this artifact type
-        - `resolvedOutputPath`: Resolved path or pattern to write the artifact
-        - `dependencies`: Completed artifacts to read for context
-      - Read any completed dependency files for context
-      - Create the artifact file using `template` as the structure and write it to `resolvedOutputPath`
-      - Apply `context` and `rules` as constraints - but do NOT copy them into the file
-      - Show brief progress: "Created <artifact-id>"
-
-   b. **Continue until all `applyRequires` artifacts are complete**
-      - After creating each artifact, re-run `openspec status --change "<name>" --json`
-      - Check if every artifact ID in `applyRequires` has `status: "done"` in the artifacts array
-      - Stop when all `applyRequires` artifacts are done
-
-   c. **If an artifact requires user input** (unclear context):
-      - Use **AskUserQuestion tool** to clarify
-      - Then continue with creation
-
-5. **Show final status**
-   ```bash
-   openspec status --change "<name>"
+   ## Impact
+   - Affected specs: <capability folders, e.g. participants, enrollments>
+   - Affected code: <files or areas, if known>
    ```
 
-**Output**
+   `design.md`:
 
-After completing all artifacts, summarize:
-- Change name and location
-- List of artifacts created with brief descriptions
-- What's ready: "All artifacts created! Ready for implementation."
-- Prompt: "Run `/opsx:apply` to start implementing."
+   ```markdown
+   # Design: <Title>
 
-**Artifact Creation Guidelines**
+   ## Approach
+   <How you'll implement it: key decisions, data shapes, endpoints, files to touch.>
 
-- Follow the `instruction` field from `openspec instructions` for each artifact type
-- The schema defines what each artifact should contain - follow it
-- Read dependency artifacts for context before creating new ones
-- Use `template` as the structure for your output file - fill in its sections
-- **IMPORTANT**: `context` and `rules` are constraints for YOU, not content for the file
-  - Do NOT copy `<context>`, `<rules>`, `<project_context>` blocks into the artifact
-  - These guide what you write, but should never appear in the output
+   ## Notes / Trade-offs
+   <Anything non-obvious, alternatives considered, or open questions. Write "N/A" if none.>
+   ```
 
-**Guardrails**
-- Create ALL artifacts needed for implementation (as defined by schema's `apply.requires`)
-- Always read dependency artifacts before creating a new one
-- If context is critically unclear, ask the user - but prefer making reasonable decisions to keep momentum
-- If a change with that name already exists, ask if user wants to continue it or create a new one
-- Verify each artifact file exists after writing before proceeding to next
+   `tasks.md`:
+
+   ```markdown
+   # Tasks
+
+   ## 1. <Group>
+   - [ ] 1.1 <task>
+   - [ ] 1.2 <task>
+
+   ## 2. <Group>
+   - [ ] 2.1 <task>
+   ```
+
+   One delta spec per affected capability at `openspec/changes/<name>/specs/<capability>/spec.md`:
+
+   ```markdown
+   # <Capability> (delta)
+
+   ## ADDED Requirements
+
+   ### Requirement: <name>
+   The system SHALL <behavior>.
+
+   #### Scenario: <name>
+   - GIVEN <precondition>
+   - WHEN <action>
+   - THEN <expected result>
+
+   ## MODIFIED Requirements
+
+   ### Requirement: <name>
+   The system SHALL <new behavior>. (Previously: <old behavior>)
+
+   ## REMOVED Requirements
+
+   ### Requirement: <name>
+   (Reason for removal.)
+   ```
+
+   Only include the ADDED / MODIFIED / REMOVED sections that actually apply. Every requirement must have at least one `#### Scenario:` with GIVEN / WHEN / THEN.
+
+4. **Keep momentum.** Prefer sensible defaults; only ask the user when a decision materially changes the spec.
+
+5. **Summarize**: list the files you created, then finish with - "Ready to build. Run `/opsx-apply` to implement the tasks."
+
+## Guardrails
+- Create and edit the files yourself. Do **not** run `openspec ...` or any other CLI command.
+- `proposal.md` = why/what, `design.md` = how, `tasks.md` = ordered steps, delta specs = requirements + scenarios.
+- Do not write any application code yet - that happens in `/opsx-apply`.
