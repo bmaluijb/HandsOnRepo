@@ -217,12 +217,11 @@ Build a feature using **Spec Driven Development** — go from a plain-English de
 
 #### How to start
 1. Remove the `copilot-instructions.md` and other instruction files you created in Exercise 1
-2. OpenSpec is already initialized in this repository — the Copilot slash commands live in `.github/prompts/`
-3. Install the OpenSpec CLI once (the slash commands call it under the hood): `npm install -g @fission-ai/openspec`
-4. Restart VS Code so the `/opsx-*` commands appear when you type `/` in Copilot Chat
-5. Pick a feature below (start with an **Easy** one if this is your first time)
-6. Follow the numbered steps inside each feature card
-7. Have fun, and show us what you made!
+2. OpenSpec is already initialized in this repository — the Copilot slash commands live in `.github/prompts/` and run entirely inside Copilot Chat, so there is **nothing to install**
+3. Restart VS Code so the `/opsx-*` commands appear when you type `/` in Copilot Chat
+4. Pick a feature below (start with an **Easy** one if this is your first time)
+5. Follow the numbered steps inside each feature card
+6. Have fun, and show us what you made!
 
 > **Tip:** The OpenSpec lifecycle is: **propose → apply → archive**. `/opsx-propose` writes a proposal, design, and task list into `openspec/changes/`; `/opsx-apply` implements the tasks; `/opsx-archive` folds the result into `openspec/specs/`. `/opsx-explore` and `/opsx-sync` are optional helpers.
 >
