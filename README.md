@@ -211,18 +211,22 @@ The architecture has enough layers and relationships for interesting diagrams:
 5. The best diagram wins! Make it look good and easy to understand
 
 
-### Exercise 3: Spec Kit Feature Addition
+### Exercise 3: OpenSpec Feature Addition
 
-Build a feature using **Spec Driven Development** — go from a plain-English description to working code using Spec Kit commands. Each feature below includes the exact commands to run at every step.
+Build a feature using **Spec Driven Development** — go from a plain-English description to working code using OpenSpec commands. Each feature below includes the exact commands to run at every step.
 
 #### How to start
 1. Remove the `copilot-instructions.md` and other instruction files you created in Exercise 1
-2. Spec Kit is already initialized in this repository — no need to download or initialize it
-3. Pick a feature below (start with an **Easy** one if this is your first time)
-4. Follow the numbered steps inside each feature card
-5. Have fun, and show us what you made!
+2. OpenSpec is already initialized in this repository — the Copilot slash commands live in `.github/prompts/`
+3. Install the OpenSpec CLI once (the slash commands call it under the hood): `npm install -g @fission-ai/openspec`
+4. Restart VS Code so the `/opsx-*` commands appear when you type `/` in Copilot Chat
+5. Pick a feature below (start with an **Easy** one if this is your first time)
+6. Follow the numbered steps inside each feature card
+7. Have fun, and show us what you made!
 
-> **Tip:** The Spec Kit lifecycle is: **specify → clarify → plan → tasks → implement**. Each feature card walks you through these steps with copy-pasteable commands.
+> **Tip:** The OpenSpec lifecycle is: **propose → apply → archive**. `/opsx-propose` writes a proposal, design, and task list into `openspec/changes/`; `/opsx-apply` implements the tasks; `/opsx-archive` folds the result into `openspec/specs/`. `/opsx-explore` and `/opsx-sync` are optional helpers.
+>
+> **Heads-up:** OpenSpec's own docs call these commands `/opsx:propose`, `/opsx:apply`, and so on. In VS Code Copilot Chat they appear with a hyphen — `/opsx-propose`, `/opsx-apply` — same workflow.
 
 ---
 
@@ -240,43 +244,33 @@ Build a feature using **Spec Driven Development** — go from a plain-English de
 - Empty query returns all participants
 - No new model, no events, no seed data changes
 
-**Step-by-step with Spec Kit**
+**Step-by-step with OpenSpec**
 
-1. **Specify** — Open Copilot Chat and type:
+1. **Propose** — Open Copilot Chat and type:
 
    ```
-   @speckit.specify Add a search endpoint to find participants by name or employer.
+   /opsx-propose Add a search endpoint to find participants by name or employer.
    It should add a Search(string query) method to ParticipantService that filters
    participants by FirstName, LastName, or EmployerName (case-insensitive).
    Add a GET /api/participants/search?q={query} endpoint. Empty query returns all.
    Add a search box to the participants page in the frontend.
    ```
 
-2. **Clarify** — Let Spec Kit ask you questions to fill in gaps:
+   OpenSpec creates a change folder under `openspec/changes/` with a proposal, design, and task list — and asks you clarifying questions if anything is unclear.
+
+2. **Apply** — Implement the tasks in the change:
 
    ```
-   @speckit.clarify
+   /opsx-apply
    ```
 
-3. **Plan** — Generate the implementation plan:
+3. **Archive** — Once it works, fold the change into your specs:
 
    ```
-   @speckit.plan
+   /opsx-archive
    ```
 
-4. **Tasks** — Break the plan into actionable tasks:
-
-   ```
-   @speckit.tasks
-   ```
-
-5. **Implement** — Generate the code:
-
-   ```
-   @speckit.implement
-   ```
-
-6. **Test it** — Double-click `run.bat` and try `http://localhost:5000/api/participants/search?q=jan`
+4. **Test it** — Double-click `run.bat` and try `http://localhost:5000/api/participants/search?q=jan`
 
 ---
 
@@ -294,23 +288,21 @@ Build a feature using **Spec Driven Development** — go from a plain-English de
 - Read-only — no validation, no events, no new models
 - Average should only include Active enrollments
 
-**Step-by-step with Spec Kit**
+**Step-by-step with OpenSpec**
 
-1. **Specify**:
+1. **Propose**:
 
    ```
-   @speckit.specify Add an enrollment statistics endpoint. Add a GetStatistics()
+   /opsx-propose Add an enrollment statistics endpoint. Add a GetStatistics()
    method to EnrollmentService that returns totalEnrollments (int),
    activeEnrollments (int), and averageContributionPercentage (decimal, average of
    Active enrollments only). Add a GET /api/enrollments/statistics endpoint.
    Display these as stat cards on the dashboard page in the frontend.
    ```
 
-2. **Clarify**: `@speckit.clarify`
-3. **Plan**: `@speckit.plan`
-4. **Tasks**: `@speckit.tasks`
-5. **Implement**: `@speckit.implement`
-6. **Test it** — Double-click `run.bat` and try `http://localhost:5000/api/enrollments/statistics`
+2. **Apply**: `/opsx-apply`
+3. **Archive**: `/opsx-archive`
+4. **Test it** — Double-click `run.bat` and try `http://localhost:5000/api/enrollments/statistics`
 
 ---
 
@@ -351,12 +343,12 @@ Build a feature using **Spec Driven Development** — go from a plain-English de
 - Validate that `ParticipantId` exists
 - Notes are returned newest-first by `CreatedAt`
 
-**Step-by-step with Spec Kit**
+**Step-by-step with OpenSpec**
 
-1. **Specify**:
+1. **Propose**:
 
    ```
-   @speckit.specify Add participant notes. Create a Note model with Id (Guid),
+   /opsx-propose Add participant notes. Create a Note model with Id (Guid),
    ParticipantId (Guid), Content (string, required), and CreatedAt (DateTime).
    Create NoteService with methods to list notes for a participant (newest first),
    add a note, and delete a note. Validate that ParticipantId exists and Content
@@ -366,11 +358,9 @@ Build a feature using **Spec Driven Development** — go from a plain-English de
    Follow the existing Repository → Service → Endpoint pattern.
    ```
 
-2. **Clarify**: `@speckit.clarify`
-3. **Plan**: `@speckit.plan`
-4. **Tasks**: `@speckit.tasks`
-5. **Implement**: `@speckit.implement`
-6. **Test it** — Double-click `run.bat`, open a participant, and try adding a note
+2. **Apply**: `/opsx-apply`
+3. **Archive**: `/opsx-archive`
+4. **Test it** — Double-click `run.bat`, open a participant, and try adding a note
 
 ---
 
@@ -413,12 +403,12 @@ Build a feature using **Spec Driven Development** — go from a plain-English de
 - Progress = sum of contributions for that enrollment in that year vs `TargetAmount`
 - `percentComplete` is capped at 100
 
-**Step-by-step with Spec Kit**
+**Step-by-step with OpenSpec**
 
-1. **Specify**:
+1. **Propose**:
 
    ```
-   @speckit.specify Add a contribution goal tracker. Create a ContributionGoal
+   /opsx-propose Add a contribution goal tracker. Create a ContributionGoal
    model with Id (Guid), EnrollmentId (Guid), Year (int), and TargetAmount
    (decimal, must be > 0). Create ContributionGoalService that can set a goal
    (one per enrollment per year), list goals for an enrollment, and calculate
@@ -430,23 +420,20 @@ Build a feature using **Spec Driven Development** — go from a plain-English de
    Repository → Service → Endpoint pattern.
    ```
 
-2. **Clarify**: `@speckit.clarify`
-3. **Plan**: `@speckit.plan`
-4. **Tasks**: `@speckit.tasks`
-5. **Implement**: `@speckit.implement`
-6. **Test it** — Double-click `run.bat`, set a goal via the API, and check the progress bar
+2. **Apply**: `/opsx-apply`
+3. **Archive**: `/opsx-archive`
+4. **Test it** — Double-click `run.bat`, set a goal via the API, and check the progress bar
 
 ---
 
-#### Quick Reference: Spec Kit Commands
+#### Quick Reference: OpenSpec Commands
 
 | Step | Command | What it does |
 |---|---|---|
-| 1 | `@speckit.specify <description>` | Creates a feature specification from your description |
-| 2 | `@speckit.clarify` | Asks you questions to fill in gaps in the spec |
-| 3 | `@speckit.plan` | Generates an implementation plan (architecture, files to change) |
-| 4 | `@speckit.tasks` | Breaks the plan into ordered, actionable tasks |
-| 5 | `@speckit.implement` | Generates the actual code for all tasks |
-| — | `@speckit.analyze` | (Optional) Cross-checks spec, plan, and tasks for consistency |
+| 1 | `/opsx-propose <description>` | Creates a change folder (proposal, design, tasks) from your description |
+| 2 | `/opsx-apply` | Implements the tasks in the active change |
+| 3 | `/opsx-archive` | Folds the change's specs into `openspec/specs/` and archives it |
+| — | `/opsx-explore <topic>` | (Optional) Research the codebase before you propose |
+| — | `/opsx-sync` | (Optional) Reconcile specs with the current code |
 
 
